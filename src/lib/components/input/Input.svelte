@@ -1,0 +1,59 @@
+<script lang="ts">
+	import classNames from 'classnames';
+	import { createEventDispatcher } from 'svelte';
+
+	export let disabled = false;
+	export let required = false;
+	export let customClasses: string | undefined = undefined;
+	export let error: string | undefined = undefined;
+	export let hint: string | undefined = undefined;
+	export let componentType: 'text' | 'number' | 'password' = 'text';
+	export let placeholder: string | undefined = undefined;
+
+	const dispatch = createEventDispatcher();
+
+	const inputHandler = (e: any) => {
+		dispatch('inputChange', { text: e?.target?.value });
+		dispatch('dirty', {
+			value: true
+		});
+		dispatch('hasValue', { value: e?.target?.value?.length > 0 });
+	};
+</script>
+
+<div class="flex-column flex-column my-4 content-center">
+	<input
+		type={componentType}
+		on:input={inputHandler}
+		class:disabled
+		{disabled}
+		{required}
+		{placeholder}
+		class={classNames(
+			'base',
+			{ invalid: error?.length, password: componentType === 'password' },
+			customClasses
+		)}
+	/>
+	{#if error}
+		<span class="text-redDarker">{error}</span>
+	{/if}
+	{#if hint}
+		<span class="text-sm font-thin text-zinc-300">{hint}</span>
+	{/if}
+</div>
+
+<style>
+	.base {
+		/** base */
+		@apply flex content-center items-center justify-center gap-5 rounded-md border-2 border-gray py-3 px-5 text-base font-medium outline-none transition-all duration-500;
+		/** focus */
+		@apply focus:border-darkBlue50opacity;
+	}
+	.invalid {
+		@apply border-redDarker;
+	}
+	.password {
+		@apply space-x-2 font-verdana font-bold;
+	}
+</style>

@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply font-primary;
+    @apply bg-primaryBg text-black;
+    .app_body {
+        @apply w-default;
+    }
+}
+h1 {
+    @apply text-2xl font-extrabold tracking-widest font-primary md:text-4xl;
+}
+
+h2 {
+    @apply text-xl font-primary md:text-3xl;
+}
+
+h3 {
+    @apply text-lg font-primary md:text-2xl;
+}
+
+h4 {
+    @apply text-base font-bold font-primary md:text-lg;
+}
+
+p, a, span, button {
+    @apply text-sm;
+}
