@@ -4,11 +4,7 @@
 	import './../tailwind.scss';
 	import { page } from '$app/stores';
 	export let data: PageData;
-
-	console.log(data, page);
-	page.subscribe((v) => {
-		console.log(v);
-	});
+	export let isAuthenticated = false;
 </script>
 
 <div class="app">

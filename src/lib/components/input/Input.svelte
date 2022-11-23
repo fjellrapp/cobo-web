@@ -4,6 +4,7 @@
 
 	export let disabled = false;
 	export let required = false;
+	export let label = '';
 	export let customClasses: string | undefined = undefined;
 	export let error: string | undefined = undefined;
 	export let hint: string | undefined = undefined;
@@ -22,6 +23,7 @@
 </script>
 
 <div class="flex-column flex-column my-4 content-center">
+	<label for="">test</label>
 	<input
 		type={componentType}
 		on:input={inputHandler}
@@ -46,7 +48,7 @@
 <style>
 	.base {
 		/** base */
-		@apply flex content-center items-center justify-center gap-5 rounded-md border-2 border-gray py-3 px-5 text-base font-medium outline-none transition-all duration-500;
+		@apply flex w-4/6 content-center items-center justify-center gap-5 rounded-md border-2 border-gray py-3 px-5 text-base font-medium outline-none transition-all duration-500;
 		/** focus */
 		@apply focus:border-darkBlue50opacity;
 	}

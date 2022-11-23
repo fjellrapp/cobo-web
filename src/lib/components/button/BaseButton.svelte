@@ -99,5 +99,11 @@
 		&.active {
 			@apply bg-darkBlue text-white;
 		}
+		&.btn-secondary {
+			@apply bg-red hover:bg-redDarker;
+			&.active {
+				@apply bg-redDarker;
+			}
+		}
 	}
 </style>

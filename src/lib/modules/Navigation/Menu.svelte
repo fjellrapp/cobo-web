@@ -10,15 +10,13 @@
 
 	let activeRoute: string;
 	page.subscribe((p) => {
-		console.log('page fra menu', p);
-
 		if (p.route.id) {
 			activeRoute = p.route.id;
 		}
 	});
 </script>
 
-<div class="menu-items w-">
+<div class="menu-items">
 	<BaseButton iconOnly beforeIcon={HomeIcon} title="Hjem" active={activeRoute === '/'} />
 	<BaseButton
 		iconOnly
