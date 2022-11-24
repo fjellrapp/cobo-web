@@ -1,10 +1,10 @@
-<div>
+<div class="w-[60%]">
 	<svg
-		width="523"
-		height="387"
+		width="100%"
 		viewBox="0 0 523 387"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		preserveAspectRatio="xMidYMid meet"
 	>
 		<g clip-path="url(#clip0_1_94)">
 			<path

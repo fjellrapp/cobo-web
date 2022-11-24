@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import BaseButton from '$lib/components/button/BaseButton.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 	import { ButtonTypeEnum } from '$lib/components/button/types';
 	import CogIcon from '$lib/components/icons/CogIcon.svelte';
 	import LoginIcon from '$lib/components/icons/LoginIcon.svelte';
@@ -25,18 +26,25 @@
 		<Menu />
 	{:else}
 		<div class="menu-auth">
-			<BaseButton iconOnly beforeIcon={LoginIcon} active={activeRoute === '/'} title="Logg inn" />
-			<BaseButton
+			<Button
+				iconOnly
+				beforeIcon={LoginIcon}
+				active={activeRoute === '/'}
+				title="Logg inn"
+				on:click={() => goto('/')}
+			/>
+			<Button
 				iconOnly
 				beforeIcon={SignupIcon}
 				active={activeRoute === '/registrer'}
 				title="Registrer deg"
+				on:click={() => goto('/registrer')}
 			/>
 		</div>
 	{/if}
 	<div class="actions">
 		{#if authenticated}
-			<BaseButton
+			<Button
 				beforeIcon={PlusIcon}
 				iconOnly
 				active
@@ -44,7 +52,7 @@
 				title="Legg til hendelse, aktivitet eller andre ting"
 			/>
 		{/if}
-		<BaseButton iconOnly beforeIcon={CogIcon} title="Innstillinger" />
+		<Button iconOnly beforeIcon={CogIcon} title="Innstillinger" />
 	</div>
 </div>
 

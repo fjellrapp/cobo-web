@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BaseButton from '$lib/components/button/BaseButton.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 	import BellIcon from '$lib/components/icons/BellIcon.svelte';
 	import ChartPieIcon from '$lib/components/icons/ChartPieIcon.svelte';
 	import ClipboardIcon from '$lib/components/icons/ClipboardIcon.svelte';
@@ -17,26 +17,21 @@
 </script>
 
 <div class="menu-items">
-	<BaseButton iconOnly beforeIcon={HomeIcon} title="Hjem" active={activeRoute === '/'} />
-	<BaseButton
+	<Button iconOnly beforeIcon={HomeIcon} title="Hjem" active={activeRoute === '/'} />
+	<Button
 		iconOnly
 		beforeIcon={ClipboardIcon}
 		title="Gjøremål"
 		active={activeRoute === '/gjoremol'}
 	/>
-	<BaseButton
+	<Button
 		iconOnly
 		beforeIcon={BellIcon}
 		title="Påminnelser"
 		active={activeRoute === '/paaminnelser'}
 	/>
-	<BaseButton
-		iconOnly
-		beforeIcon={MailIcon}
-		title="Meldinger"
-		active={activeRoute === 'meldinger'}
-	/>
-	<BaseButton
+	<Button iconOnly beforeIcon={MailIcon} title="Meldinger" active={activeRoute === 'meldinger'} />
+	<Button
 		iconOnly
 		beforeIcon={ChartPieIcon}
 		title="Statistikk"

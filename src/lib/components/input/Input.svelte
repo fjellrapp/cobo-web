@@ -8,7 +8,7 @@
 	export let customClasses: string | undefined = undefined;
 	export let error: string | undefined = undefined;
 	export let hint: string | undefined = undefined;
-	export let componentType: 'text' | 'number' | 'password' = 'text';
+	export let type: 'text' | 'number' | 'password' | 'tel' | 'email' = 'text';
 	export let placeholder: string | undefined = undefined;
 
 	const dispatch = createEventDispatcher();
@@ -22,10 +22,11 @@
 	};
 </script>
 
-<div class="flex-column flex-column my-4 content-center">
-	<label for="">test</label>
+<div class="flex-column flex-column my-4 w-full content-center">
+	<label for={label.toLowerCase()} class="text-xs font-bold uppercase text-darkBlue">{label}</label>
 	<input
-		type={componentType}
+		id={label.toLowerCase()}
+		{type}
 		on:input={inputHandler}
 		class:disabled
 		{disabled}
@@ -33,7 +34,7 @@
 		{placeholder}
 		class={classNames(
 			'base',
-			{ invalid: error?.length, password: componentType === 'password' },
+			{ invalid: error?.length, password: type === 'password' },
 			customClasses
 		)}
 	/>
@@ -48,7 +49,7 @@
 <style>
 	.base {
 		/** base */
-		@apply flex w-4/6 content-center items-center justify-center gap-5 rounded-md border-2 border-gray py-3 px-5 text-base font-medium outline-none transition-all duration-500;
+		@apply flex w-full content-center items-center justify-center gap-5 rounded-md border-2 border-gray py-3 px-5 text-base font-medium outline-none transition-all duration-500;
 		/** focus */
 		@apply focus:border-darkBlue50opacity;
 	}

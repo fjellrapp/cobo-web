@@ -23,7 +23,8 @@ module.exports = {
         "bodyLg":"24px",
         "buttonDefault": "17px",
         "buttonMedium": "20px",
-        "buttonLarge": "24px"
+        "buttonLarge": "24px",
+        "2xs": "0.65em"
       },
       lineHeight: {
         "default": "24px",

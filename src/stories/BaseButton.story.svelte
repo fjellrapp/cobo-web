@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BaseButton from '../lib/components/button/BaseButton.svelte';
+	import Button from '../lib/components/button/Button.svelte';
 	import type { Hst } from '@histoire/plugin-svelte';
 	import Alert from '../lib/components/icons/Alert.svelte';
 	import { ButtonTypeEnum } from '../lib/components/button/types';
@@ -11,17 +11,11 @@
 </script>
 
 <Hst.Story>
-	<BaseButton componentType={ButtonTypeEnum.PRIMARY} on:click={clickHandler}
-		>En primærknapp</BaseButton
-	>
-	<BaseButton componentType={ButtonTypeEnum.SECONDARY}>En sekundærknapp</BaseButton>
-	<BaseButton componentType={ButtonTypeEnum.PRIMARY} afterIcon={Alert}
-		>En annen knapp med ikon</BaseButton
-	>
-	<BaseButton componentType={ButtonTypeEnum.PRIMARY} beforeIcon={Alert}
-		>En annen knapp med ikon</BaseButton
-	>
-	<BaseButton componentType={ButtonTypeEnum.LINK} beforeIcon={Alert}>En link</BaseButton>
+	<Button componentType={ButtonTypeEnum.PRIMARY} on:click={clickHandler}>En primærknapp</Button>
+	<Button componentType={ButtonTypeEnum.SECONDARY}>En sekundærknapp</Button>
+	<Button componentType={ButtonTypeEnum.PRIMARY} afterIcon={Alert}>En annen knapp med ikon</Button>
+	<Button componentType={ButtonTypeEnum.PRIMARY} beforeIcon={Alert}>En annen knapp med ikon</Button>
+	<Button componentType={ButtonTypeEnum.LINK} beforeIcon={Alert}>En link</Button>
 
-	<BaseButton iconOnly beforeIcon={Alert} title="Med kun ikon" />
+	<Button iconOnly beforeIcon={Alert} title="Med kun ikon" />
 </Hst.Story>
