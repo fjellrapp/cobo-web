@@ -8,7 +8,7 @@ axios.interceptors.response.use(res => res, async error => {
         // refresh
         const refreshResult = await refresh();
         if (refreshResult.status === 200) {
-            const token = (refreshResult as AxiosResponse).data?.access_token; 
+            const token = (refreshResult as AxiosResponse).data?.accessToken; 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
         }
     }

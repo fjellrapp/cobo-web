@@ -6,6 +6,8 @@
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
 	import { signIn } from '$lib/hooks/auth';
 	import { getUser } from '$lib/hooks/users';
+	import { user } from '$lib/stores/user_store';
+	import type { User } from '$lib/utils/interfaces/user';
 	import axios, { type AxiosResponse } from 'axios';
 
 	let phone: string;
@@ -19,7 +21,11 @@
 				const authData = response as AxiosResponse;
 				const { access_token } = authData.data;
 				axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-				await getUser(phone);
+				const userRequest = await getUser(phone);
+
+				if (!(userRequest instanceof Error)) {
+					user.set({ user: userRequest as User });
+				}
 			}
 		}
 	};
