@@ -1,8 +1,9 @@
+import type { User } from "$lib/utils/interfaces/user"
 import axios from "axios"
 
-export const getUser = async (phone: string) => {
+export const getUser = async (phone: string): Promise<User | Error | undefined> => {
    try {
-    const result = await axios.get(`users/getByPhone/${phone}`)
+    const result = await axios.get(`/users/getByPhone/${phone}`)
     if (result.status === 200) {
         return result.data
     }

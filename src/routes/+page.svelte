@@ -1,7 +1,12 @@
 <script lang="ts">
 	import SignIn from '$lib/modules/auth/SignIn.svelte';
+	import type { User } from '$lib/utils/interfaces/user';
+	import { onMount } from 'svelte';
 
 	let authenticated = false;
+	let user: User;
+
+	onMount(() => {});
 </script>
 
 <svelte:head>

@@ -4,21 +4,34 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
 	import { createForm } from 'felte';
-	import { validator } from '@felte/validator-yup';
-	import * as yup from 'yup';
 	import { signUp } from '$lib/hooks/auth';
 	import type { SignUpModel } from '$lib/utils/interfaces/auth';
+	import { goto } from '$app/navigation';
+
+	interface SignupError {
+		passwordDoNotMatch: string;
+	}
+	const validateErrors = (model: SignUpModel): SignupError => {
+		const errors: SignupError = { passwordDoNotMatch: '' };
+		if (model.password !== model.passwordConfirm)
+			errors.passwordDoNotMatch = 'password do not match';
+
+		return errors;
+	};
 
 	const { form } = createForm({
-		validate: (values: any) => {
-			const typedValues = values as SignUpModel;
-			const error: SignUpModel | {} = {};
-			console.log(typedValues);
+		validate: (values: unknown) => {
+			const model = values as SignUpModel;
+
+			return validateErrors(model);
 		},
-		onSubmit: (values) => {
-			submitted = true;
-			console.log(values);
-			signUp(values as SignUpModel);
+		onSubmit: async (values) => {
+			const model = { ...values } as SignUpModel;
+			delete model.passwordConfirm;
+			const signupResult = await signUp(model);
+			if (signupResult.status === 201) {
+				goto('/');
+			}
 		},
 		onError: (res) => {
 			console.log(res);
@@ -27,17 +40,6 @@
 			console.log(success);
 		}
 	});
-
-	const signupModel: SignUpModel = {
-		firstName: '',
-		lastName: '',
-		email: '',
-		phone: '',
-		password: '',
-		passwordConfirm: ''
-	};
-
-	let submitted = false;
 </script>
 
 <UnauthPageLayout>

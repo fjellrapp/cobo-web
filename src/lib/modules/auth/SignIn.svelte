@@ -14,6 +14,7 @@
 	const handleSubmit = async () => {
 		if (phone && password) {
 			const response = await signIn(phone, password).catch((e) => console.log(e));
+			console.log(response);
 			if (response?.status === 200) {
 				const authData = response as AxiosResponse;
 				const { access_token } = authData.data;
