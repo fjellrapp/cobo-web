@@ -11,6 +11,7 @@
 	export let active = false;
 	export let beforeIcon: ConstructorOfATypedSvelteComponent | null = null;
 	export let afterIcon: ConstructorOfATypedSvelteComponent | null = null;
+	export let type: string = '';
 
 	$: element = componentType === ButtonTypeEnum.LINK ? 'a' : 'button';
 </script>
@@ -33,9 +34,11 @@
 		},
 		class_extenstion
 	)}
+	{type}
 	on:click
 	on:keydown
 	on:keyup
+	on:submit
 >
 	{#if beforeIcon}
 		<svelte:component this={beforeIcon} />

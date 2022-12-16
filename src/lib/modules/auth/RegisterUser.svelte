@@ -3,22 +3,32 @@
 	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
-	import { object, string } from 'yup';
-	const signupSchema = object({
-		firstName: string().required().label('Fornavn'),
-		lastName: string().required().label('Etternavn'),
-		email: string().required().label('Epost'),
-		phone: string().required().max(8).label('Telefon'),
-		password: string().required().strict().min(8).label('Passord')
+	import { createForm } from 'felte';
+	import { validator } from '@felte/validator-yup';
+	import * as yup from 'yup';
+	import { signUp } from '$lib/hooks/auth';
+	import type { SignUpModel } from '$lib/utils/interfaces/auth';
+
+	const { form } = createForm({
+		validate: (values: any) => {
+			const typedValues = values as SignUpModel;
+			const error: SignUpModel | {} = {};
+			console.log(typedValues);
+		},
+		onSubmit: (values) => {
+			submitted = true;
+			console.log(values);
+			signUp(values as SignUpModel);
+		},
+		onError: (res) => {
+			console.log(res);
+		},
+		onSuccess: (success) => {
+			console.log(success);
+		}
 	});
-	const signupModel: {
-		firstName: string;
-		lastName: string;
-		email: string;
-		phone: string;
-		password: string;
-		passwordConfirm: string;
-	} = {
+
+	const signupModel: SignUpModel = {
 		firstName: '',
 		lastName: '',
 		email: '',
@@ -27,14 +37,7 @@
 		passwordConfirm: ''
 	};
 
-	$: hasValues = Object.keys(signupModel).some((value) => value.length === 0) ? false : true;
-
-	const handleSubmit = () => {
-		if (hasValues) {
-			console.log(signupModel);
-		}
-	};
-	console.log(hasValues);
+	let submitted = false;
 </script>
 
 <UnauthPageLayout>
@@ -45,41 +48,23 @@
 				For å benytte Cobo sine tjenester, kreves det at du har en konto. Registrer en konto her.
 			</h2>
 		</div>
-		<form on:submit|preventDefault={handleSubmit} class="w-full">
+		<form use:form class="w-full">
 			<div class="flex w-full flex-1 gap-4">
-				<Input
-					label="Fornavn"
-					on:inputChange={(e) => (signupModel.firstName = e.detail.text)}
-					required
-				/>
-				<Input
-					label="Etternavn"
-					on:inputChange={(e) => (signupModel.lastName = e.detail.text)}
-					required
-				/>
+				<Input label="Fornavn" name="firstName" required />
+				<Input label="Etternavn" name="lastName" required />
 			</div>
-			<Input label="Epost" on:inputChange={(e) => (signupModel.email = e.detail.text)} required />
-			<Input label="Telefon" required on:inputChange={(e) => (signupModel.phone = e.detail.text)} />
+			<Input label="Epost" name="email" required />
+			<Input label="Telefon" required name="phone" />
 			<div class="flex w-full flex-1 gap-4">
-				<Input
-					label="Passord"
-					type="password"
-					required
-					on:inputChange={(e) => (signupModel.password = e.detail.text)}
-				/>
-				<Input
-					label="Bekreft assord"
-					type="password"
-					required
-					on:inputChange={(e) => (signupModel.password = e.detail.text)}
-				/>
+				<Input label="Passord" type="password" name="password" required />
+				<Input label="Bekreft assord" type="password" name="passwordConfirm" required />
+			</div>
+			<div class="items-between flex flex-col">
+				<div class="flex flex-row-reverse items-center justify-between gap-2">
+					<Button title="Logg inn" type="submit">Registrer</Button>
+				</div>
 			</div>
 		</form>
-		<div class="items-between flex flex-col">
-			<div class="flex flex-row-reverse items-center justify-between gap-2">
-				<Button title="Logg inn" on:click={handleSubmit} disabled={!hasValues}>Registrer</Button>
-			</div>
-		</div>
 	</div>
 	<div
 		class="hidden min-w-[400px] max-w-[800px] flex-1 content-center items-center justify-center lg:flex"

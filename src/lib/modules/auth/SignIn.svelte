@@ -5,12 +5,21 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
 	import { signIn } from '$lib/hooks/auth';
+	import { getUser } from '$lib/hooks/users';
+	import axios, { type AxiosResponse } from 'axios';
+
 	let phone: string;
 	let password: string;
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (phone && password) {
-			signIn(phone, password);
+			const response = await signIn(phone, password).catch((e) => console.log(e));
+			if (response?.status === 200) {
+				const authData = response as AxiosResponse;
+				const { access_token } = authData.data;
+				axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+				await getUser(phone);
+			}
 		}
 	};
 </script>

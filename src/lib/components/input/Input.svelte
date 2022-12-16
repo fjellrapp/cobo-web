@@ -7,6 +7,7 @@
 	export let label = '';
 	export let customClasses: string | undefined = undefined;
 	export let error: string | undefined = undefined;
+	export let name: string | undefined = undefined;
 	export let hint: string | undefined = undefined;
 	export let type: 'text' | 'number' | 'password' | 'tel' | 'email' = 'text';
 	export let placeholder: string | undefined = undefined;
@@ -20,6 +21,7 @@
 		});
 		dispatch('hasValue', { value: e?.target?.value?.length > 0 });
 	};
+	console.log('error', error);
 </script>
 
 <div class="flex-column flex-column my-4 w-full content-center">
@@ -32,6 +34,7 @@
 		{disabled}
 		{required}
 		{placeholder}
+		{name}
 		class={classNames(
 			'base',
 			{ invalid: error?.length, password: type === 'password' },

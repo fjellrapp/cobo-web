@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
 	import SignIn from '$lib/modules/auth/SignIn.svelte';
 
 	let authenticated = false;
