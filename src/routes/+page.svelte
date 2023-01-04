@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { getUser } from '$lib/hooks/users';
 	import SignIn from '$lib/modules/auth/SignIn.svelte';
 	import { user } from '$lib/stores/user_store';
 	import type { User } from '$lib/utils/interfaces/user';
 	import { onMount } from 'svelte';
 
 	let authenticated = false;
+	let ready = false;
 	let currentUser: User;
 
 	user.subscribe((state) => {
@@ -15,9 +15,10 @@
 		}
 	});
 
-	onMount(() => {
+	onMount(async () => {
 		if (!authenticated) {
 		}
+		ready = true;
 	});
 </script>
 
@@ -26,7 +27,7 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 <div class="flex flex-col justify-center gap-5">
-	{#if !authenticated}
+	{#if !authenticated && ready}
 		<SignIn />
 	{:else}
 		<p>Authenticated</p>

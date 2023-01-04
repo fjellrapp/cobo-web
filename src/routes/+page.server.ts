@@ -1,11 +1,12 @@
 // since there's no dynamic data here, we can prerender
 import  "$lib/utils/interceptors/axios"
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types"
+
 
 // it so that it gets served as a static asset in production
-export const prerender = true;
-export const load: PageLoad = ({params}) => {
+export const load: PageServerLoad = ({params}: any) => {
     return {
         params
     }
 }
+

@@ -4,28 +4,26 @@
 	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
-	import { signIn } from '$lib/hooks/auth';
-	import { getUser } from '$lib/hooks/users';
-	import { user } from '$lib/stores/user_store';
-	import type { User } from '$lib/utils/interfaces/user';
-	import axios, { type AxiosResponse } from 'axios';
+	import type { AxiosResponse } from 'axios';
+	import axios from 'axios';
 
 	let phone: string;
 	let password: string;
 
+	const login = async (authResponse: unknown): Promise<any> => {
+		const authData = authResponse as AxiosResponse;
+		const { access_token, refresh } = authData.data;
+	};
+
 	const handleSubmit = async () => {
 		if (phone && password) {
-			const response = await signIn(phone, password).catch((e) => console.log(e));
-			console.log(response);
-			if (response?.status === 200) {
-				const authData = response as AxiosResponse;
-				const { access_token } = authData.data;
-				axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-				const userRequest = await getUser(phone);
+			try {
+				await axios.post('api/login', { phone, password });
 
-				if (!(userRequest instanceof Error)) {
-					user.set({ user: userRequest as User });
-				}
+				const user = await axios.get('api/user/current');
+				console.log(user);
+			} catch (e: unknown) {
+				console.log('errored', e);
 			}
 		}
 	};
@@ -42,7 +40,12 @@
 
 		<form on:submit|preventDefault={handleSubmit}>
 			<Input label="Telefonnummer" on:inputChange={(e) => (phone = e.detail.text)} />
-			<Input label="Passord" type="password" on:inputChange={(e) => (password = e.detail.text)} />
+			<Input
+				label="Passord"
+				type="password"
+				on:inputChange={(e) => (password = e.detail.text)}
+				on:enter={() => handleSubmit()}
+			/>
 		</form>
 		<div class="items-between flex flex-col">
 			<div class="flex flex-row-reverse items-center justify-between gap-2">

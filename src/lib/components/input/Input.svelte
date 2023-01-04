@@ -21,7 +21,7 @@
 		});
 		dispatch('hasValue', { value: e?.target?.value?.length > 0 });
 	};
-	console.log('error', error);
+	const keyUpHandler = (e: KeyboardEvent) => e.key === 'Enter' && dispatch('enter');
 </script>
 
 <div class="flex-column flex-column my-4 w-full content-center">
@@ -30,6 +30,7 @@
 		id={label.toLowerCase()}
 		{type}
 		on:input={inputHandler}
+		on:keyup={keyUpHandler}
 		class:disabled
 		{disabled}
 		{required}
