@@ -11,7 +11,7 @@ export const POST = ( async ({cookies, request}) => {
         const response = loginResponse as AxiosResponse;
         const {access_token, refresh_token} = response.data 
         cookies.set('jwt-r', refresh_token, {path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 30});
-        cookies.set('jwt', access_token, {path: '/', httpOnly: true, maxAge: 60 * 60 * 24});
+        cookies.set('jwt', access_token, {path: '/', httpOnly: true, maxAge: 60});
         return json(response.data)
     }
 

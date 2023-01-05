@@ -2,16 +2,24 @@
 	import SignIn from '$lib/modules/auth/SignIn.svelte';
 	import { user } from '$lib/stores/user_store';
 	import type { User } from '$lib/utils/interfaces/user';
+	import axios from 'axios';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
+	export let data: PageData;
 	let authenticated = false;
 	let ready = false;
 	let currentUser: User;
-	export let pageData: PageData;
 
-	const getCurrentUser = () => {
-		console.log(pageData.token);
+	const validateToken = async () => {
+		console.log(data);
+		if (data?.token) {
+			const userResponse = await axios.get('api/user/current');
+			if (userResponse.data) {
+				currentUser = userResponse.data;
+				authenticated = true;
+			}
+		}
 	};
 
 	user.subscribe((state) => {
@@ -23,6 +31,7 @@
 
 	onMount(async () => {
 		if (!authenticated) {
+			await validateToken();
 		}
 		ready = true;
 	});
