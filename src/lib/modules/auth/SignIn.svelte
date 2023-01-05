@@ -4,24 +4,17 @@
 	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
-	import type { AxiosResponse } from 'axios';
+	import { user } from '$lib/stores/user_store';
 	import axios from 'axios';
 
 	let phone: string;
 	let password: string;
-
-	const login = async (authResponse: unknown): Promise<any> => {
-		const authData = authResponse as AxiosResponse;
-		const { access_token, refresh } = authData.data;
-	};
-
 	const handleSubmit = async () => {
 		if (phone && password) {
 			try {
 				await axios.post('api/login', { phone, password });
-
-				const user = await axios.get('api/user/current');
-				console.log(user);
+				const currentUser = await axios.get('api/user/current');
+				user.set({ user: currentUser.data });
 			} catch (e: unknown) {
 				console.log('errored', e);
 			}

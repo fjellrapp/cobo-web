@@ -29,6 +29,7 @@ export const signUp = async (model: SignUpModel) => {
 
 export const refresh = async () => {
    try {
+
       return await axios.get(`${baseUrl}/auth/refresh`, {withCredentials: true})
    } catch (e: unknown) {
     return e as AxiosError

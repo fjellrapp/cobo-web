@@ -3,13 +3,19 @@
 	import { user } from '$lib/stores/user_store';
 	import type { User } from '$lib/utils/interfaces/user';
 	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
 
 	let authenticated = false;
 	let ready = false;
 	let currentUser: User;
+	export let pageData: PageData;
+
+	const getCurrentUser = () => {
+		console.log(pageData.token);
+	};
 
 	user.subscribe((state) => {
-		if (state?.user) {
+		if (state.user) {
 			currentUser = state.user;
 			authenticated = true;
 		}

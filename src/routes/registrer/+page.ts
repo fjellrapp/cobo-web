@@ -1,5 +1,4 @@
 
-import  "$lib/utils/interceptors/axios"
 import type { PageLoad } from "./$types";
 
 // it so that it gets served as a static asset in production
