@@ -7,14 +7,21 @@
 	import LoginIcon from '$lib/components/icons/LoginIcon.svelte';
 	import PlusIcon from '$lib/components/icons/PlusIcon.svelte';
 	import SignupIcon from '$lib/components/icons/SignupIcon.svelte';
+	import { user } from '$lib/stores/user_store';
+	import SettingsPane from '../Panes/SettingsPane/SettingsPane.svelte';
 	import Menu from './Menu.svelte';
 
 	let authenticated = false;
 	let activeRoute: string;
+	let settingsPaneOpen = false;
 	page.subscribe((p) => {
 		if (p.route.id) {
 			activeRoute = p.route.id;
 		}
+	});
+
+	user.subscribe((store) => {
+		authenticated = store.isAuthenticated;
 	});
 </script>
 
@@ -52,7 +59,15 @@
 				title="Legg til hendelse, aktivitet eller andre ting"
 			/>
 		{/if}
-		<Button iconOnly beforeIcon={CogIcon} title="Innstillinger" />
+		<Button
+			iconOnly
+			beforeIcon={CogIcon}
+			active={activeRoute === '/settings'}
+			title="Innstillinger"
+			on:click={() => {
+				goto('/settings');
+			}}
+		/>
 	</div>
 </div>
 

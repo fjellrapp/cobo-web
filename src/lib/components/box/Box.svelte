@@ -1,7 +1,8 @@
 <script lang="ts">
+	export let extendCss: string = '';
 </script>
 
-<div class="box">
+<div class={`box ${extendCss} bg-slate-900`}>
 	<slot />
 </div>
 

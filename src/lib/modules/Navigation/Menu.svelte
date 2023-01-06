@@ -7,6 +7,7 @@
 	import MailIcon from '$lib/components/icons/MailIcon.svelte';
 
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	let activeRoute: string;
 	page.subscribe((p) => {
@@ -17,25 +18,34 @@
 </script>
 
 <div class="menu-items">
-	<Button iconOnly beforeIcon={HomeIcon} title="Hjem" active={activeRoute === '/'} />
+	<Button
+		iconOnly
+		beforeIcon={HomeIcon}
+		title="Hjem"
+		active={activeRoute === '/'}
+		on:click={() => goto('/')}
+	/>
 	<Button
 		iconOnly
 		beforeIcon={ClipboardIcon}
 		title="Gjøremål"
-		active={activeRoute === '/gjoremol'}
+		active={activeRoute === '/activities'}
+		on:click={() => goto('/activities')}
 	/>
 	<Button
 		iconOnly
 		beforeIcon={BellIcon}
 		title="Påminnelser"
-		active={activeRoute === '/paaminnelser'}
+		active={activeRoute === '/reminders'}
+		on:click={() => goto('/reminders')}
 	/>
 	<Button iconOnly beforeIcon={MailIcon} title="Meldinger" active={activeRoute === 'meldinger'} />
 	<Button
 		iconOnly
 		beforeIcon={ChartPieIcon}
 		title="Statistikk"
-		active={activeRoute === 'statistikk'}
+		active={activeRoute === '/statistics'}
+		on:click={() => goto('/statistics')}
 	/>
 </div>
 

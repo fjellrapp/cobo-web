@@ -43,6 +43,7 @@
 	{#if beforeIcon}
 		<svelte:component this={beforeIcon} />
 	{/if}
+
 	{#if !iconOnly}
 		<slot />
 	{/if}

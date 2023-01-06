@@ -16,8 +16,7 @@
 		if (data?.token) {
 			const userResponse = await axios.get('api/user/current');
 			if (userResponse.data) {
-				currentUser = userResponse.data;
-				authenticated = true;
+				user.set({ user: userResponse.data, isAuthenticated: true });
 			}
 		}
 	};
@@ -45,7 +44,7 @@
 	{#if !authenticated && ready}
 		<SignIn />
 	{:else}
-		<p>Authenticated</p>
+		<p>Authenticated {currentUser?.firstName ?? ''}</p>
 	{/if}
 </div>
 
