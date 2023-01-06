@@ -4,7 +4,6 @@ import axios from "axios";
 export const CoboAxios = (cookies: Cookies, refresh = false) => {
     const authorizationCookie = cookies.get('jwt');
     const refreshCookie = cookies.get('jwt-r');
-    console.log("hello")
     const instance = axios.create({baseURL: 'http://localhost:3000/', headers: {
         'Authorization': `Bearer ${refresh ? refreshCookie : authorizationCookie}`
     }})

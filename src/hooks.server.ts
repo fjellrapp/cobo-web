@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "$env/static/private";
 import { CoboAxios } from "$lib/utils/axios/instance";
 import type { Handle } from "@sveltejs/kit";
 
@@ -6,15 +7,15 @@ export const handle = (async ({event, resolve}) => {
     const refresh = event.cookies.get('jwt-r');
 
     if (!access && refresh) {
-        console.log("acce", access, refresh)
         try {
-            const tokensResponse = await CoboAxios(event.cookies, true).get('api/refresh');
+            const tokensResponse = await CoboAxios(event.cookies, true).get(`${API_BASE_URL}auth/refresh`);
             if (tokensResponse.status === 200) {
                 const {access_token, refresh_token} = tokensResponse.data;
-                console.log(access_token, refresh_token)
+                event.cookies.set('jwt', access_token, {path: '/', httpOnly: true, secure: true, maxAge: 60 });
+                event.cookies.set('jwt-r', refresh_token, {path: '/', httpOnly: true, secure: true, maxAge: 60 * 60 * 24 * 30});
             }
         } catch (e) {
-            console.log("real ", e)
+            console.error("Could not refresh token", e)
         }
         return await resolve(event)
     }
