@@ -26,10 +26,12 @@
 			'btn-primary': componentType === ButtonTypeEnum.PRIMARY,
 			'btn-secondary': componentType === ButtonTypeEnum.SECONDARY,
 			'is-link': componentType === ButtonTypeEnum.LINK,
+			'btn-plain': componentType === ButtonTypeEnum.PLAIN,
 			'size-small': size === 'small',
 			'size-medium': size === 'medium',
 			'size-large': size === 'large',
 			'icon-only': iconOnly,
+
 			active: active
 		},
 		class_extenstion
@@ -73,6 +75,10 @@
 	.btn-secondary {
 		@apply bg-red hover:bg-redDarker;
 		@apply outline-red50opacity;
+	}
+
+	.btn-plain {
+		@apply bg-none shadow-none outline-none;
 	}
 	.disabled {
 		@apply cursor-not-allowed;

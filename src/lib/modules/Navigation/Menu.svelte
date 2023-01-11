@@ -39,7 +39,6 @@
 		active={activeRoute === '/reminders'}
 		on:click={() => goto('/reminders')}
 	/>
-	<Button iconOnly beforeIcon={MailIcon} title="Meldinger" active={activeRoute === 'meldinger'} />
 	<Button
 		iconOnly
 		beforeIcon={ChartPieIcon}

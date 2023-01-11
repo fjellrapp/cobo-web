@@ -1,12 +1,18 @@
 <script lang="ts">
 	import Nav from '$lib/modules/Navigation/Nav.svelte';
+	import UserGateway from '$lib/modules/UserGateway/UserGateway.svelte';
 	import './../tailwind.scss';
 </script>
 
 <div class="app">
 	<main class="layout">
 		<Nav />
-		<slot />
+		<div class="flex flex-col gap-2">
+			<UserGateway />
+			<div class="flex-1">
+				<slot />
+			</div>
+		</div>
 	</main>
 </div>
 
