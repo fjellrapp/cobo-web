@@ -3,8 +3,13 @@ import { HstSvelte } from '@histoire/plugin-svelte'
 
 export default defineConfig({
   tree: {
-    file: 'title'
-  },
+		groups: [
+			{
+				id: 'top',
+				title: ''
+			}
+		]
+	},
   setupFile: './histoire.setup.ts',
   plugins: [
     HstSvelte(),
