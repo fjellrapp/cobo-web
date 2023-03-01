@@ -1,10 +1,11 @@
-import { CoboAxios } from "$lib/utils/axios/instance";
+import { fetcher } from "$lib/utils/axios/instance";
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
+import { API_BASE_URL } from "$env/static/private";
 
-const baseUrl = 'http://localhost:3000';
-export const GET = (async (request) => {
-    const response = await CoboAxios(request.cookies).get(`${baseUrl}/users/getCurrentUser`);
+const baseUrl = API_BASE_URL;
+export const GET = (async ({cookies}) => {
+    const response = await fetcher(baseUrl, cookies).get(`users/getCurrentUser`);
     if (response.status === 200) {
         return json(response.data)
     }

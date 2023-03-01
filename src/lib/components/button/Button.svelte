@@ -11,18 +11,14 @@
 	export let active = false;
 	export let beforeIcon: ConstructorOfATypedSvelteComponent | null = null;
 	export let afterIcon: ConstructorOfATypedSvelteComponent | null = null;
-	export let type: string = '';
-
-	$: element = componentType === ButtonTypeEnum.LINK ? 'a' : 'button';
 </script>
 
-<svelte:element
-	this={element}
+<button
 	class:disabled
 	{title}
 	class={classnames(
+		'btn',
 		{
-			btn: element === 'button',
 			'btn-primary': componentType === ButtonTypeEnum.PRIMARY,
 			'btn-secondary': componentType === ButtonTypeEnum.SECONDARY,
 			'is-link': componentType === ButtonTypeEnum.LINK,
@@ -36,11 +32,11 @@
 		},
 		class_extenstion
 	)}
-	{type}
 	on:click
 	on:keydown
 	on:keyup
 	on:submit
+	{...$$restProps}
 >
 	{#if beforeIcon}
 		<svelte:component this={beforeIcon} />
@@ -52,7 +48,7 @@
 	{#if afterIcon}
 		<svelte:component this={afterIcon} />
 	{/if}
-</svelte:element>
+</button>
 
 <style lang="scss">
 	.btn {
@@ -93,7 +89,7 @@
 		@apply py-3 px-9 text-base;
 	}
 	.is-link {
-		@apply m-0 flex items-center gap-2 bg-none p-0 text-blue-500 underline underline-offset-2 shadow-none;
+		@apply m-0 flex cursor-pointer items-center gap-2 bg-none p-0 text-blue-500 underline underline-offset-2 shadow-none;
 	}
 
 	.icon-only {

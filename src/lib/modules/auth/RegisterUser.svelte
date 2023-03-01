@@ -4,9 +4,10 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
 	import { createForm } from 'felte';
-	import { signUp } from '$lib/hooks/auth';
 	import type { SignUpModel } from '$lib/utils/interfaces/auth';
 	import { goto } from '$app/navigation';
+	import axios, { AxiosError } from 'axios';
+	import { toast, ToastTypeEnum } from '$lib/stores/toast_store';
 
 	interface SignupError {
 		passwordDoNotMatch: string;
@@ -28,8 +29,11 @@
 		onSubmit: async (values) => {
 			const model = { ...values } as SignUpModel;
 			delete model.passwordConfirm;
-			const signupResult = await signUp(model);
-			if (signupResult.status === 201) {
+			const signupResult = await axios.post('api/auth/signup', model).catch((e: AxiosError) => {
+				console.log(e);
+				toast(ToastTypeEnum.ERROR, e.message, { debug: true });
+			});
+			if (signupResult?.status === 201) {
 				goto('/');
 			}
 		},

@@ -12,7 +12,6 @@
 	let currentUser: User;
 
 	const validateToken = async () => {
-		console.log(data);
 		if (data?.token) {
 			const userResponse = await axios.get('api/user/current');
 			if (userResponse.data) {
@@ -40,7 +39,7 @@
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
-<div class="flex flex-col justify-center gap-5">
+<div class="flex w-full flex-col justify-center gap-5">
 	{#if !authenticated && ready}
 		<SignIn />
 	{:else}

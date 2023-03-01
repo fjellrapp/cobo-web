@@ -4,6 +4,7 @@
 	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
+	import Link from '$lib/components/link/Link.svelte';
 	import { user } from '$lib/stores/user_store';
 	import axios from 'axios';
 
@@ -12,9 +13,10 @@
 	const handleSubmit = async () => {
 		if (phone && password) {
 			try {
-				await axios.post('api/login', { phone, password });
-				const currentUser = await axios.get('api/user/current');
-				user.set({ user: currentUser.data });
+				const authenticated = await axios.post('api/auth/signin', { phone, password });
+				console.log('IS AUT', authenticated);
+				const currentUser = authenticated && (await axios.get('api/user/current'));
+				user.set({ user: currentUser.data as User });
 			} catch (e: unknown) {
 				console.log('errored', e);
 			}
@@ -47,7 +49,7 @@
 				>
 				<div class="inline-flex gap-2">
 					<p class=" text-darkBlue">Ingen bruker?</p>
-					<Button title="Registrer deg" componentType={ButtonTypeEnum.LINK}>Registrer deg</Button>
+					<Link title="Registrer deg" href="/registrer">Registrer deg</Link>
 				</div>
 			</div>
 		</div>
