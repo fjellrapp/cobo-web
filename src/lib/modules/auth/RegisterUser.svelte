@@ -11,9 +11,10 @@
 
 	interface SignupError {
 		passwordDoNotMatch: string;
+		userAlreadyExists?: string;
 	}
 	const validateErrors = (model: SignUpModel): SignupError => {
-		const errors: SignupError = { passwordDoNotMatch: '' };
+		const errors: SignupError = { passwordDoNotMatch: '', userAlreadyExists: '' };
 		if (model.password !== model.passwordConfirm)
 			errors.passwordDoNotMatch = 'password do not match';
 
@@ -24,23 +25,28 @@
 		validate: (values: unknown) => {
 			const model = values as SignUpModel;
 
+			console.log('errr', model);
 			return validateErrors(model);
 		},
 		onSubmit: async (values) => {
 			const model = { ...values } as SignUpModel;
 			delete model.passwordConfirm;
-			const signupResult = await axios.post('api/auth/signup', model).catch((e: AxiosError) => {
-				console.log(e);
-				toast(ToastTypeEnum.ERROR, e.message, { debug: true });
-			});
+			const signupResult = await axios.post('api/auth/signup', model);
 			if (signupResult?.status === 201) {
 				goto('/');
 			}
 		},
-		onError: (res) => {
-			console.log(res);
+		onError: (error: unknown) => {
+			if (error instanceof AxiosError) {
+				const message = error.response?.data?.message;
+				toast(ToastTypeEnum.ERROR, message || error.message);
+			} else {
+				console.error(error);
+			}
 		},
 		onSuccess: (success) => {
+			toast(ToastTypeEnum.SUCCESS, 'Welcome my man!');
+			goto('/login');
 			console.log(success);
 		}
 	});
