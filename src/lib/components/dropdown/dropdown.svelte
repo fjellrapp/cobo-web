@@ -1,33 +1,13 @@
 <script lang="ts">
 	// dropdown
-	export let label: string | undefined = '';
-	export let labelColor: 'text-white' | 'text-black' = 'text-white';
-	export let iconOnly: boolean = false;
-	export let active: boolean = false;
-	export let disabled: boolean = false;
-	export let dropdown: boolean = false;
 	export let dropdownItems: string[] | ConstructorOfATypedSvelteComponent[] = [];
 	export let isOpen: boolean = false;
+	console.log('isopen', isOpen);
 </script>
 
-<div class="flex">
-	<button
-		class="flex w-full items-center justify-center rounded-md px-4 py-2 text-left text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-		class:active
-		class:disabled
-		class:dropdown
-		class:iconOnly
-		on:click={() => {
-			isOpen = !isOpen;
-		}}
-	>
-		{#if !iconOnly}
-			<span class={`ml-2 ${labelColor}`}>{label}</span>
-		{/if}
-	</button>
-
+<div class="absolute top-16 flex flex-col">
 	{#if isOpen}
-		<div class="flex rounded-full">
+		<div class="top-10 flex h-[5vh] w-36 rounded-full bg-slate-400">
 			{#each dropdownItems as item}
 				<div class="flex">
 					<button

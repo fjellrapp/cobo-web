@@ -5,7 +5,9 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
 	import Link from '$lib/components/link/Link.svelte';
-	import { user } from '$lib/stores/user_store';
+	import { authStore } from '$lib/stores/auth_store';
+	import { userStore } from '$lib/stores/user_store';
+	import type { User } from '$lib/utils/interfaces/user';
 	import axios from 'axios';
 
 	let phone: string;
@@ -14,9 +16,9 @@
 		if (phone && password) {
 			try {
 				const authenticated = await axios.post('api/auth/signin', { phone, password });
-				console.log('IS AUT', authenticated);
 				const currentUser = authenticated && (await axios.get('api/user/current'));
-				user.set({ user: currentUser.data as User });
+				authStore.set({ isAuthenticated: true });
+				userStore.set({ user: currentUser.data as User });
 			} catch (e: unknown) {
 				console.log('errored', e);
 			}
@@ -49,7 +51,7 @@
 				>
 				<div class="inline-flex gap-2">
 					<p class=" text-darkBlue">Ingen bruker?</p>
-					<Link title="Registrer deg" href="/registrer">Registrer deg</Link>
+					<Link title="Registrer deg" href="/register">Registrer deg</Link>
 				</div>
 			</div>
 		</div>

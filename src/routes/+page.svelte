@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SignIn from '$lib/modules/auth/SignIn.svelte';
-	import { user } from '$lib/stores/user_store';
+	import { authStore } from '$lib/stores/auth_store';
+	import { userStore } from '$lib/stores/user_store';
 	import type { User } from '$lib/utils/interfaces/user';
 	import axios from 'axios';
 	import { onMount } from 'svelte';
@@ -13,14 +14,15 @@
 
 	const validateToken = async () => {
 		if (data?.token) {
+			authStore.set({ isAuthenticated: true });
 			const userResponse = await axios.get('api/user/current');
 			if (userResponse.data) {
-				user.set({ user: userResponse.data, isAuthenticated: true });
+				userStore.set({ user: userResponse.data });
 			}
 		}
 	};
 
-	user.subscribe((state) => {
+	userStore.subscribe((state) => {
 		if (state.user) {
 			currentUser = state.user;
 			authenticated = true;

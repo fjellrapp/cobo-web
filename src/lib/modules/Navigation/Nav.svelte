@@ -7,21 +7,15 @@
 	import LoginIcon from '$lib/components/icons/LoginIcon.svelte';
 	import PlusIcon from '$lib/components/icons/PlusIcon.svelte';
 	import SignupIcon from '$lib/components/icons/SignupIcon.svelte';
-	import { user } from '$lib/stores/user_store';
-	import SettingsPane from '../Panes/SettingsPane/SettingsPane.svelte';
+	import { authStore } from '$lib/stores/auth_store';
 	import Menu from './Menu.svelte';
 
 	let authenticated = false;
 	let activeRoute: string;
-	let settingsPaneOpen = false;
 	page.subscribe((p) => {
 		if (p.route.id) {
 			activeRoute = p.route.id;
 		}
-	});
-
-	user.subscribe((store) => {
-		authenticated = store.isAuthenticated;
 	});
 </script>
 
@@ -29,7 +23,7 @@
 	<div class="logo">
 		<h1 class=" text-xs font-extrabold uppercase">Cobo</h1>
 	</div>
-	{#if authenticated}
+	{#if $authStore.isAuthenticated}
 		<Menu />
 	{:else}
 		<div class="menu-auth">
@@ -43,9 +37,9 @@
 			<Button
 				iconOnly
 				beforeIcon={SignupIcon}
-				active={activeRoute === '/registrer'}
+				active={activeRoute === '/register'}
 				title="Registrer deg"
-				on:click={() => goto('/registrer')}
+				on:click={() => goto('/register')}
 			/>
 		</div>
 	{/if}

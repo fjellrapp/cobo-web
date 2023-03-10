@@ -5,33 +5,29 @@
 	export let disabled = false;
 	export let iconOnly = false;
 	export let size: 'small' | 'medium' | 'large' = 'medium';
-	export let class_extenstion: string | null = null;
 	export let componentType: ButtonTypeEnum = ButtonTypeEnum.PRIMARY;
 	export let title: string | undefined = undefined;
 	export let active = false;
 	export let beforeIcon: ConstructorOfATypedSvelteComponent | null = null;
 	export let afterIcon: ConstructorOfATypedSvelteComponent | null = null;
+	export let twClasses: string = '';
+	console.log('TRERTE', twClasses);
 </script>
 
 <button
 	class:disabled
 	{title}
-	class={classnames(
-		'btn',
-		{
-			'btn-primary': componentType === ButtonTypeEnum.PRIMARY,
-			'btn-secondary': componentType === ButtonTypeEnum.SECONDARY,
-			'is-link': componentType === ButtonTypeEnum.LINK,
-			'btn-plain': componentType === ButtonTypeEnum.PLAIN,
-			'size-small': size === 'small',
-			'size-medium': size === 'medium',
-			'size-large': size === 'large',
-			'icon-only': iconOnly,
-
-			active: active
-		},
-		class_extenstion
-	)}
+	class={classnames(`btn ${twClasses}`, {
+		'btn-primary': componentType === ButtonTypeEnum.PRIMARY,
+		'btn-secondary': componentType === ButtonTypeEnum.SECONDARY,
+		'is-link': componentType === ButtonTypeEnum.LINK,
+		'btn-plain': componentType === ButtonTypeEnum.PLAIN,
+		'size-small': size === 'small',
+		'size-medium': size === 'medium',
+		'size-large': size === 'large',
+		'icon-only': iconOnly,
+		active: active
+	})}
 	on:click
 	on:keydown
 	on:keyup
@@ -74,7 +70,7 @@
 	}
 
 	.btn-plain {
-		@apply bg-none shadow-none outline-none;
+		@apply bg-none text-black shadow-none outline-none;
 	}
 	.disabled {
 		@apply cursor-not-allowed;
