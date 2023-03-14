@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
-	import { ButtonTypeEnum } from '$lib/components/button/types';
 	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
@@ -18,7 +17,7 @@
 				const authenticated = await axios.post('api/auth/signin', { phone, password });
 				const currentUser = authenticated && (await axios.get('api/user/current'));
 				authStore.set({ isAuthenticated: true });
-				userStore.set({ user: currentUser.data as User });
+				userStore.set({ user: currentUser.data as User, loading: false });
 			} catch (e: unknown) {
 				console.log('errored', e);
 			}

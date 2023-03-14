@@ -17,9 +17,15 @@
 			authStore.set({ isAuthenticated: true });
 			const userResponse = await axios.get('api/user/current');
 			if (userResponse.data) {
-				userStore.set({ user: userResponse.data });
+				userStore.set({ user: userResponse.data, loading: false });
 			}
 		}
+		userStore.update((state) => {
+			return {
+				...state,
+				loading: false
+			};
+		});
 	};
 
 	userStore.subscribe((state) => {
@@ -30,6 +36,7 @@
 	});
 
 	onMount(async () => {
+		console.log('hello', authenticated);
 		if (!authenticated) {
 			await validateToken();
 		}

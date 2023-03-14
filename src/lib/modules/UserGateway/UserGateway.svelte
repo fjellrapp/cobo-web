@@ -5,8 +5,6 @@
 	import User from '$lib/components/icons/User.svelte';
 	import LoaderShimmer from '$lib/components/loaders/LoaderShimmer/LoaderShimmer.svelte';
 	import { userStore } from '$lib/stores/user_store';
-
-	userStore.subscribe((value) => console.log('value', value));
 </script>
 
 <div class="flex h-24  w-full flex-col content-center items-end justify-center p-4">

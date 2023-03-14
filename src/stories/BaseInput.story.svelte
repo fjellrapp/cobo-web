@@ -16,5 +16,5 @@
 	<Input on:inputChange={handleChange} on:hasValue={handleHasValue} />
 	<Input on:inputChange={handleChange} on:hasValue={handleHasValue} error="error" />
 	<Input on:inputChange={handleChange} on:hasValue={handleHasValue} hint="hint" />
-	<Input on:inputChange={handleChange} on:hasValue={handleHasValue} componentType="password" />
+	<Input on:inputChange={handleChange} on:hasValue={handleHasValue} type="password" />
 </Hst.Story>
