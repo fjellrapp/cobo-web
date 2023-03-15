@@ -18,6 +18,7 @@
 				const currentUser = authenticated && (await axios.get('api/user/current'));
 				authStore.set({ isAuthenticated: true });
 				userStore.set({ user: currentUser.data as User, loading: false });
+				window.location.reload();
 			} catch (e: unknown) {
 				console.log('errored', e);
 			}

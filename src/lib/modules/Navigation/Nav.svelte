@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import User from '$lib/components/icons/User.svelte';
 
 	import { authStore } from '$lib/stores/auth_store';
 	import { userStore } from '$lib/stores/user_store';
+	import type { PageData } from '.svelte-kit/types/src/routes/$types';
 	import Menu from './Menu.svelte';
 	import MenuActions from './MenuActions.svelte';
 	import MenuUnauth from './MenuUnauth.svelte';
 	import NavLoading from './NavLoading.svelte';
 
-	let authenticated = false;
+	export let data: PageData;
 	let activeRoute: string;
+
+	const authenticated = !!data.user?.id;
 
 	page.subscribe((p) => {
 		if (p.route.id) {
@@ -23,14 +27,14 @@
 		<h1 class=" text-xs font-extrabold uppercase">Cobo</h1>
 	</div>
 
-	{#if $authStore.isAuthenticated && !$userStore.loading}
+	{#if ($authStore.isAuthenticated && !$userStore.loading) || authenticated}
 		<Menu />
 	{:else if $userStore.loading}
 		<NavLoading />
 	{:else}
 		<MenuUnauth {activeRoute} />
 	{/if}
-	<MenuActions {authenticated} {activeRoute} />
+	<MenuActions authenticated={$authStore.isAuthenticated || authenticated} {activeRoute} />
 </div>
 
 <style>
