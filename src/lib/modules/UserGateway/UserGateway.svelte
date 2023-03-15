@@ -5,6 +5,9 @@
 	import User from '$lib/components/icons/User.svelte';
 	import LoaderShimmer from '$lib/components/loaders/LoaderShimmer/LoaderShimmer.svelte';
 	import { userStore } from '$lib/stores/user_store';
+	import type { PageData } from '.svelte-kit/types/src/routes/$types';
+
+	export let data: PageData;
 </script>
 
 <div class="flex h-24  w-full flex-col content-center items-end justify-center p-4">
@@ -15,6 +18,7 @@
 			twClasses="w-1/12 text-black"
 			componentType={ButtonTypeEnum.PLAIN}
 			afterIcon={User}
+			active={data.route.id === '/profile'}
 			on:click={() => goto('/profile')}>{$userStore.user?.firstName}</Button
 		>
 	{/if}

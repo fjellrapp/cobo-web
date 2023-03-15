@@ -17,8 +17,12 @@ export const POST: RequestHandler = async ({request}): Promise<Response> => {
         })
     }
     } catch (e: unknown) {
+        console.log("catch", e)
         if (isAxiosError(e)) {
+            
             const err = extractErrorMessage(e)
+            
+            console.log("What is going on", err )
             throw error(err.status, err.error)
         }
     }

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import User from '$lib/components/icons/User.svelte';
 
 	import { authStore } from '$lib/stores/auth_store';
 	import { userStore } from '$lib/stores/user_store';

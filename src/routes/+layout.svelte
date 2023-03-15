@@ -13,7 +13,7 @@
 		<Nav {data} />
 		<div class="flex flex-col gap-2">
 			{#if data.user?.id}
-				<UserGateway />
+				<UserGateway {data} />
 			{/if}
 			<div class="container flex flex-1 self-center px-8">
 				<slot />

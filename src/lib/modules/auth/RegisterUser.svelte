@@ -24,8 +24,6 @@
 	const { form } = createForm({
 		validate: (values: unknown) => {
 			const model = values as SignUpModel;
-
-			console.log('errr', model);
 			return validateErrors(model);
 		},
 		onSubmit: async (values) => {

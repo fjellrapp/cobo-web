@@ -6,6 +6,8 @@ export const handle = (async ({event, resolve}) => {
     const basePath = API_BASE_URL;
     const access = event.cookies.get('jwt');
     const refresh = event.cookies.get('jwt-r');
+    console.log("has access and refresh", access, refresh
+    )
 
     if (!access && refresh) {
         try {

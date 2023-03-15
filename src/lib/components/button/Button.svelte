@@ -11,7 +11,6 @@
 	export let beforeIcon: ConstructorOfATypedSvelteComponent | null = null;
 	export let afterIcon: ConstructorOfATypedSvelteComponent | null = null;
 	export let twClasses: string = '';
-	console.log('TRERTE', twClasses);
 </script>
 
 <button
@@ -57,7 +56,7 @@
 		/** focus */
 		@apply focus:underline focus:underline-offset-2 focus:outline focus:outline-2 focus:outline-offset-2;
 		/** active */
-		@apply active:scale-105;
+		@apply underline active:scale-105;
 	}
 
 	.btn-primary {
