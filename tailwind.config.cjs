@@ -4,14 +4,14 @@ module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     fontFamily: {
-      primary: ['Work Sans', ...fontFamily.sans]
+      primary: ['Mona Sans', ...fontFamily.sans]
     },
     extend: {
       gridTemplateColumns: {
         'menu-default': 'minmax(80px, 100px) 1fr'
       },
       fontFamily: {
-        primary: ['Work Sans', ...fontFamily.sans],
+        primary: ['Mona Sans', ...fontFamily.sans],
         verdana: ['Verdana, Geneva, Tahoma, sans-serif']
       },
       fontSize: {
