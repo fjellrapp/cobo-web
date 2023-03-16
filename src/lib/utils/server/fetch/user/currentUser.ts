@@ -1,4 +1,4 @@
-import type { User } from "$lib/utils/interfaces/user";
+import type { User } from "$lib/utils/models/interfaces/user";
 
 type FetchCurrentUserArgs = {
     /** Uses fetch from PageServerLod */

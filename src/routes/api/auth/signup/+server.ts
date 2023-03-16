@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "$env/static/private";
 import { fetcher } from "$lib/utils/axios/instance";
-import type { SignUpModel } from "$lib/utils/interfaces/auth";
+import type { SignUpModel } from "$lib/utils/models/interfaces/auth";
 import { extractErrorMessage } from "$lib/utils/message/extractError";
 import { isAxiosError } from "$lib/utils/validation/error";
 import type { RequestHandler } from "./$types";

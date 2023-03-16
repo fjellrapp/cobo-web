@@ -92,7 +92,7 @@
 	}
 
 	.icon-only {
-		@apply bg-transparent shadow-none;
+		@apply bg-transparent text-darkBlue shadow-none;
 		/** Focus */
 		@apply focus:bg-darkBlue focus:text-white;
 		/** Hover */
