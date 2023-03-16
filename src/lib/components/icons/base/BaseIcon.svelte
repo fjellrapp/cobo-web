@@ -22,8 +22,8 @@
 	</svg>
 </div>
 
-<style>
+<style lang="css">
 	.icon-base {
-		display: flex;
+		@apply flex
 	}
 </style>

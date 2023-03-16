@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/button/Button.svelte';
 	import { ButtonTypeEnum } from '$lib/components/button/types';
-	import User from '$lib/components/icons/User.svelte';
+	import User from '$lib/components/icons/UserIcon.svelte';
 	import LoaderShimmer from '$lib/components/loaders/LoaderShimmer/LoaderShimmer.svelte';
 	import { userStore } from '$lib/stores/user_store';
 	import type { PageData } from '.svelte-kit/types/src/routes/$types';
