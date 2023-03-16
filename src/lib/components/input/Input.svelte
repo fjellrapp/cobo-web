@@ -11,6 +11,7 @@
 	export let hint: string | undefined = undefined;
 	export let type: 'text' | 'number' | 'password' | 'tel' | 'email' = 'text';
 	export let placeholder: string | undefined = undefined;
+	export let value: string | number | null | undefined = '';
 
 	const dispatch = createEventDispatcher();
 
@@ -36,6 +37,7 @@
 		{required}
 		{placeholder}
 		{name}
+		{value}
 		class={classNames(
 			'base',
 			{ invalid: error?.length, password: type === 'password' },

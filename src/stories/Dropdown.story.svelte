@@ -5,5 +5,5 @@
 </script>
 
 <Hst.Story>
-	<Dropdown label="Dropdown" />
+	<Dropdown />
 </Hst.Story>
