@@ -1,8 +1,8 @@
-
-import type { PageLoad } from "./$types";
+import type { PageLoad } from './$types';
 
 // it so that it gets served as a static asset in production
-export const load: PageLoad = ({params}) => {
-    return {
-        params
-}} 
+export const load: PageLoad = ({ params }) => {
+	return {
+		params
+	};
+};

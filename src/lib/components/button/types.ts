@@ -1,6 +1,6 @@
 export enum ButtonTypeEnum {
-    PRIMARY = "primary",
-    SECONDARY = "secondary",
-    LINK = "link",
-    PLAIN = "plain"
+	PRIMARY = 'primary',
+	SECONDARY = 'secondary',
+	LINK = 'link',
+	PLAIN = 'plain'
 }

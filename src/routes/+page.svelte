@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Text from '$lib/components/primitives/Text.svelte';
-import SignIn from '$lib/modules/auth/SignIn.svelte';
+	import SignIn from '$lib/modules/auth/SignIn.svelte';
 	import { authStore } from '$lib/stores/auth_store';
 	import { userStore } from '$lib/stores/user_store';
 	import { onMount } from 'svelte';

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { BaseIconCssOptions } from "$lib/utils/models/types/baseIcon";
-	import classNames from "classnames";
-
+	import type { BaseIconCssOptions } from '$lib/utils/models/types/baseIcon';
+	import classNames from 'classnames';
 
 	export let fill: string = 'none';
 	export let stroke: string = 'currentColor';
@@ -14,7 +13,7 @@
 	};
 </script>
 
-<div class={classNames(css.wrapper,'icon-base')}>
+<div class={classNames(css.wrapper, 'icon-base')}>
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		class={css.svg}
@@ -33,6 +32,6 @@
 
 <style lang="css">
 	.icon-base {
-		@apply flex
+		@apply flex;
 	}
 </style>

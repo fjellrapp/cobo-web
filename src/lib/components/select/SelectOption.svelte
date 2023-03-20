@@ -1,7 +1,17 @@
 <script lang="ts">
-    export let value: string | number = ''
+	import { createEventDispatcher } from 'svelte';
 
+	export let value: string | number = '';
+	let onChange: (value: any) => void;
+	const dispatch = createEventDispatcher();
+
+	const emit = () => {
+		dispatch('selected', {
+			value
+		});
+	};
 </script>
-<div>
- {value}
-</div>
+
+<button on:click={emit}>
+	{value}
+</button>

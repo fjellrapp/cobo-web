@@ -1,9 +1,9 @@
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios';
 
 export function assertIsError(e: unknown): asserts e is Error {
-    if (!(e instanceof Error)) throw new Error(`Unknown error: ${e}`)
+	if (!(e instanceof Error)) throw new Error(`Unknown error: ${e}`);
 }
 
 export function isAxiosError(e: unknown): e is AxiosError {
-    return e instanceof AxiosError
+	return e instanceof AxiosError;
 }
