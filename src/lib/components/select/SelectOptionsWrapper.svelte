@@ -1,3 +1,3 @@
-<div class="flex flex-col gap-4 bg-inherit">
+<div class="flex flex-col bg-inherit">
 	<slot />
 </div>

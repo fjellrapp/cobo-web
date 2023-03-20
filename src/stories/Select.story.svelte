@@ -12,7 +12,7 @@
 <Hst.Story>
 	<StoryWrapper>
 		<Select onChange={(value) => console.log('change', value)}>
-			<div class="flex flex-col shadow" slot="options">
+			<div class="flex flex-col" slot="options">
 				<SelectOptionsWrapper>
 					{#each values as value}
 						<SelectOption {value} on:selected={(v) => console.log('value', v)} />

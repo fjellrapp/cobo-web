@@ -1,4 +1,4 @@
 export type BaseIconCssOptions = {
-	wrapper: string;
-	svg: string;
+	wrapper?: string;
+	svg?: string;
 };
