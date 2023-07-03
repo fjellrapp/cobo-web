@@ -1,53 +1,53 @@
+<style></style>
+
 <script lang="ts">
-	import Button from '$lib/components/button/Button.svelte';
-	import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
-	import Input from '$lib/components/input/Input.svelte';
-	import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
-	import { createForm } from 'felte';
-	import type { SignUpModel } from '$lib/utils/interfaces/auth';
-	import { goto } from '$app/navigation';
-	import axios, { AxiosError } from 'axios';
-	import { toast, ToastTypeEnum } from '$lib/stores/toast_store';
+import Button from '$lib/components/button/Button.svelte';
+import IntroIllustration from '$lib/components/illustrations/IntroIllustration.svelte';
+import Input from '$lib/components/input/Input.svelte';
+import UnauthPageLayout from '$lib/components/layouts/UnauthPageLayout.svelte';
+import { createForm } from 'felte';
+import type { SignUpModel } from '$lib/utils/models/interfaces/auth';
+import { goto } from '$app/navigation';
+import axios, { AxiosError } from 'axios';
+import { toast, ToastTypeEnum } from '$lib/stores/toast_store';
 
-	interface SignupError {
-		passwordDoNotMatch: string;
-		userAlreadyExists?: string;
-	}
-	const validateErrors = (model: SignUpModel): SignupError => {
-		const errors: SignupError = { passwordDoNotMatch: '', userAlreadyExists: '' };
-		if (model.password !== model.passwordConfirm)
-			errors.passwordDoNotMatch = 'password do not match';
+interface SignupError {
+	passwordDoNotMatch: string;
+	userAlreadyExists?: string;
+}
+const validateErrors = (model: SignUpModel): SignupError => {
+	const errors: SignupError = { passwordDoNotMatch: '', userAlreadyExists: '' };
+	if (model.password !== model.passwordConfirm) errors.passwordDoNotMatch = 'password do not match';
 
-		return errors;
-	};
+	return errors;
+};
 
-	const { form } = createForm({
-		validate: (values: unknown) => {
-			const model = values as SignUpModel;
-			return validateErrors(model);
-		},
-		onSubmit: async (values) => {
-			const model = { ...values } as SignUpModel;
-			delete model.passwordConfirm;
-			const signupResult = await axios.post('api/auth/signup', model);
-			if (signupResult?.status === 201) {
-				goto('/');
-			}
-		},
-		onError: (error: unknown) => {
-			if (error instanceof AxiosError) {
-				const message = error.response?.data?.message;
-				toast(ToastTypeEnum.ERROR, message || error.message);
-			} else {
-				console.error(error);
-			}
-		},
-		onSuccess: (success) => {
-			toast(ToastTypeEnum.SUCCESS, 'Welcome my man!');
-			goto('/login');
-			console.log(success);
+const { form } = createForm({
+	validate: (values: unknown) => {
+		const model = values as SignUpModel;
+		return validateErrors(model);
+	},
+	onSubmit: async (values) => {
+		const model = { ...values } as SignUpModel;
+		delete model.passwordConfirm;
+		const signupResult = await axios.post('api/auth/signup', model);
+		if (signupResult?.status === 201) {
+			goto('/');
 		}
-	});
+	},
+	onError: (error: unknown) => {
+		if (error instanceof AxiosError) {
+			const message = error.response?.data?.message;
+			toast(ToastTypeEnum.ERROR, message || error.message);
+		} else {
+			console.error(error);
+		}
+	},
+	onSuccess: (success) => {
+		toast(ToastTypeEnum.SUCCESS, 'Welcome my man!');
+		goto('/login');
+	}
+});
 </script>
 
 <UnauthPageLayout>
@@ -77,10 +77,7 @@
 		</form>
 	</div>
 	<div
-		class="hidden min-w-[400px] max-w-[800px] flex-1 content-center items-center justify-center lg:flex"
-	>
+		class="hidden min-w-[400px] max-w-[800px] flex-1 content-center items-center justify-center lg:flex">
 		<IntroIllustration />
 	</div>
 </UnauthPageLayout>
-
-<style></style>

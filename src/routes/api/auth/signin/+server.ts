@@ -13,7 +13,6 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 		if (loginResponse?.status === 200) {
 			const response = loginResponse as AxiosResponse;
 			const { access_token, refresh_token } = response.data;
-			console.log('the datar', response.data);
 			cookies.set('jwt-r', refresh_token, {
 				path: '/',
 				httpOnly: true,
