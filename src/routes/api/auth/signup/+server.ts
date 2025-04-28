@@ -18,6 +18,7 @@ export const POST: RequestHandler = async ({ request }): Promise<Response> => {
 			});
 		}
 	} catch (e: unknown) {
+		console.log(e);
 		if (isAxiosError(e)) {
 			const err = extractErrorMessage(e);
 
