@@ -22,8 +22,8 @@ export const POST: RequestHandler = async ({ request }): Promise<Response> => {
 		if (isAxiosError(e)) {
 			const err = extractErrorMessage(e);
 
-			throw error(err.status, err.error);
+			error(err.status, err.error);
 		}
 	}
-	throw error(400, new Error('Unexpected error'));
+	error(400, new Error('Unexpected error'));
 };

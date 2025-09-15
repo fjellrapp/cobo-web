@@ -8,6 +8,6 @@ export const validateCookie = (cookies: Cookies, route: string) => {
 	if (isWhitelisted(route)) return;
 	const token = cookies.get('jwt');
 	if (!token) {
-		throw redirect(307, '/');
+		redirect(307, '/');
 	}
 };

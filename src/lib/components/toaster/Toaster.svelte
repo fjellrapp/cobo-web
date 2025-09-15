@@ -26,8 +26,8 @@
 	>
 		{#each $toasts as toast}
 			<button
-				in:fly={paramsIn}
-				out:fly={paramsOut}
+				in:fly|global={paramsIn}
+				out:fly|global={paramsOut}
 				on:click={handleClose}
 				class={classNames('py-8 px-6 rounded-md my-2 max-w-[15rem]', {
 					'bg-redDarker': toast.type === ToastTypeEnum.ERROR,
