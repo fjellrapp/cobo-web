@@ -1,17 +1,10 @@
 <script lang="ts">
-import { createEventDispatcher } from 'svelte';
-
-const dispatch = createEventDispatcher();
-
-export let value: string;
-
-const emit = () => {
-	dispatch('change', {
-		value
-	});
-};
+	let { value, onChange }: { value: string; onChange?: (value: string) => void } = $props();
+	const emit = () => onChange?.(value);
 </script>
 
-<li class="flex" on:click="{emit}">
-	{value}
+<li class="flex">
+	<button type="button" class="w-full text-left" onclick={emit}>
+		{value}
+	</button>
 </li>

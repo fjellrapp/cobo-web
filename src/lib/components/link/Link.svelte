@@ -1,20 +1,33 @@
 <script lang="ts">
+	import type { Component, Snippet } from 'svelte';
 	import classNames from 'classnames';
 
-	export let href: string;
-	export let title: string;
-	export let classes: string | null = null;
-	export let iconBefore: ConstructorOfATypedSvelteComponent | null = null;
-	export let iconAfter: ConstructorOfATypedSvelteComponent | null = null;
+	let {
+		href,
+		title,
+		classes = null,
+		iconBefore = null,
+		iconAfter = null,
+		children
+	}: {
+		href: string;
+		title: string;
+		classes?: string | null;
+		iconBefore?: Component | null;
+		iconAfter?: Component | null;
+		children?: Snippet;
+	} = $props();
 </script>
 
 <a {href} {title} class={classNames({ classes }, 'base')}>
 	{#if iconBefore}
-		<svelte:component this={iconBefore} />
+		{@const Icon = iconBefore}
+		<Icon />
 	{/if}
-	<slot />
+	{@render children?.()}
 	{#if iconAfter}
-		<svelte:component this={iconAfter} />
+		{@const Icon = iconAfter}
+		<Icon />
 	{/if}
 </a>
 

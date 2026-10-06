@@ -1,24 +1,18 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
-	import { authStore } from '$lib/stores/auth_store';
-	import { userStore } from '$lib/stores/user_store';
-	import type { PageData } from '.svelte-kit/types/src/routes/$types';
+	import { authStore } from '#lib/stores/auth_store';
+	import { userStore } from '#lib/stores/user_store';
+	import type { User } from '#lib/utils/models/interfaces/user';
 	import Menu from './Menu.svelte';
 	import MenuActions from './MenuActions.svelte';
 	import MenuUnauth from './MenuUnauth.svelte';
 	import NavLoading from './NavLoading.svelte';
 
-	export let data: PageData;
-	let activeRoute: string;
+	let { data }: { data: { user: User | null } } = $props();
+	const activeRoute = $derived(page.route.id ?? null);
 
-	const authenticated = !!data.user?.id;
-
-	page.subscribe((p) => {
-		if (p.route.id) {
-			activeRoute = p.route.id;
-		}
-	});
+	const authenticated = $derived(!!data.user?.id);
 </script>
 
 <div class="nav">

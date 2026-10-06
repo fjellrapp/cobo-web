@@ -1,13 +1,13 @@
-import type { User } from '$lib/utils/models/interfaces/user';
+import type { User } from '#lib/utils/models/interfaces/user';
 
 type FetchCurrentUserArgs = {
 	/** Uses fetch from PageServerLod */
 	fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
 };
 
-export const fetchCurrentUser = async <T>({ fetch }: FetchCurrentUserArgs): Response<T> => {
+export const fetchCurrentUser = async ({ fetch }: FetchCurrentUserArgs): Promise<User | null> => {
 	try {
-		const response: Response<T> = await fetch('api/user/current');
+		const response = await fetch('api/user/current');
 		const userResponse: User = await response.json();
 		if (userResponse) {
 			return userResponse;

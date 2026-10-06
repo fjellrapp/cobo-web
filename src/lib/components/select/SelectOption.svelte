@@ -1,19 +1,15 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	let {
+		value = '',
+		onSelected
+	}: { value?: string | number; onSelected?: (value: string | number) => void } = $props();
 
-	export let value: string | number = '';
-	let onChange: (value: any) => void;
-	const dispatch = createEventDispatcher();
-
-	const emit = () => {
-		dispatch('selected', {
-			value
-		});
-	};
+	const emit = () => onSelected?.(value);
 </script>
 
 <button
-	on:click={emit}
+	type="button"
+	onclick={emit}
 	class="my-1 flex items-start px-6 py-2 transition-colors ease-in-out hover:bg-slate-200"
 >
 	{value}

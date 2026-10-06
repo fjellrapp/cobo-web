@@ -1,13 +1,12 @@
 import { json } from '@sveltejs/kit';
+import { API_BASE_URL } from '$app/env/private';
 import type { AxiosResponse } from 'axios';
 import type { RequestHandler } from './$types';
-import { fetcher } from '$lib/utils/axios/instance';
-import { API_BASE_URL } from '$env/static/private';
+import { fetcher } from '#lib/utils/axios/instance';
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
 	const user = await request.json();
 	try {
-		console.log('base', API_BASE_URL);
 		const loginResponse = await fetcher(API_BASE_URL).post('auth/login', user, {
 			withCredentials: true
 		});

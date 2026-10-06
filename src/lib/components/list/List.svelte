@@ -1,14 +1,14 @@
 <script lang="ts">
-import classNames from 'classnames';
-import { createEventDispatcher } from 'svelte';
-import ListItem from './ListItem.svelte';
-const dispatch = createEventDispatcher();
+	import type { Snippet } from 'svelte';
+	import classNames from 'classnames';
 
-export let select = false;
-
-let classes = $$props.class;
+	let {
+		select = false,
+		children,
+		class: className = ''
+	}: { select?: boolean; children?: Snippet; class?: string } = $props();
 </script>
 
-<ul class="{classNames(classes)}" class:rounded-t-none="{select}">
-	<ListItem value="{value}" on:change="{(v) => console.log('tre', v)}" />
+<ul class={classNames(className)} class:rounded-t-none={select}>
+	{@render children?.()}
 </ul>

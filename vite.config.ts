@@ -1,14 +1,8 @@
-/// <reference types="histoire" />
+import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
-import path from 'path';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
 
-const config: UserConfig = {
-	plugins: [sveltekit()],
-	resolve: {
-		alias: {
-			$lib: path.resolve(__dirname, './src/lib')
-		}
-	}
-};
-export default config;
+export default defineConfig({
+	plugins: [sveltekit({ adapter: adapter(), preprocess: vitePreprocess() })]
+});

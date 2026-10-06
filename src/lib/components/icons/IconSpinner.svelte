@@ -1,14 +1,17 @@
 <script lang="ts">
-	import type { BaseIconCssOptions } from '$lib/utils/models/types/baseIcon';
+	import type { BaseIconCssOptions } from '#lib/utils/models/types/baseIcon';
 	import BaseIcon from './base/BaseIcon.svelte';
 
-	export let css: BaseIconCssOptions = {
-		wrapper: '',
-		svg: ''
-	};
+	let {
+		css = {
+			wrapper: '',
+			svg: ''
+		},
+		...restProps
+	}: { css?: BaseIconCssOptions; [key: string]: unknown } = $props();
 </script>
 
-<BaseIcon {css} {...$$restProps}>
+<BaseIcon {css} {...restProps}>
 	<path
 		opacity="0.2"
 		fill-rule="evenodd"

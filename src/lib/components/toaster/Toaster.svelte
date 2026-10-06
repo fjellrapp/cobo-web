@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { toast, toasts, ToastTypeEnum } from '$lib/stores/toast_store';
+	import { toasts, ToastTypeEnum } from '#lib/stores/toast_store';
 	import classNames from 'classnames';
-	import { fly, slide, type FlyParams, type SlideParams } from 'svelte/transition';
+	import { fly, type FlyParams } from 'svelte/transition';
 	import { backInOut } from 'svelte/easing';
 
 	const paramsIn: FlyParams = {
@@ -24,11 +24,11 @@
 			'fixed top-4 right-4 block h-auto min-w-[7rem] max-w-[20rem] rounded-md m-4 '
 		)}
 	>
-		{#each $toasts as toast}
+		{#each $toasts as toast, index (index)}
 			<button
-				in:fly|global={paramsIn}
-				out:fly|global={paramsOut}
-				on:click={handleClose}
+				in:fly={paramsIn}
+				out:fly={paramsOut}
+				onclick={handleClose}
 				class={classNames('py-8 px-6 rounded-md my-2 max-w-[15rem]', {
 					'bg-redDarker': toast.type === ToastTypeEnum.ERROR,
 					'bg-yellow': toast.type === ToastTypeEnum.WARNING,

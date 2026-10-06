@@ -1,20 +1,15 @@
 <script lang="ts">
-	import Button from '$lib/components/button/Button.svelte';
-	import BellIcon from '$lib/components/icons/BellIcon.svelte';
-	import ChartPieIcon from '$lib/components/icons/ChartPieIcon.svelte';
-	import ClipboardIcon from '$lib/components/icons/ClipboardIcon.svelte';
-	import HomeIcon from '$lib/components/icons/HomeIcon.svelte';
-	import MailIcon from '$lib/components/icons/MailIcon.svelte';
+	import Button from '#lib/components/button/Button.svelte';
+	import BellIcon from '#lib/components/icons/BellIcon.svelte';
+	import ChartPieIcon from '#lib/components/icons/ChartPieIcon.svelte';
+	import ClipboardIcon from '#lib/components/icons/ClipboardIcon.svelte';
+	import HomeIcon from '#lib/components/icons/HomeIcon.svelte';
+	import MailIcon from '#lib/components/icons/MailIcon.svelte';
 
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 
-	let activeRoute: string;
-	page.subscribe((p) => {
-		if (p.route.id) {
-			activeRoute = p.route.id;
-		}
-	});
+	const activeRoute = $derived(page.route.id ?? '');
 </script>
 
 <div class="menu-items">
@@ -23,28 +18,28 @@
 		beforeIcon={HomeIcon}
 		title="Hjem"
 		active={activeRoute === '/'}
-		on:click={() => goto('/')}
+		onclick={() => goto('/')}
 	/>
 	<Button
 		iconOnly
 		beforeIcon={ClipboardIcon}
 		title="Gjøremål"
 		active={activeRoute === '/activities'}
-		on:click={() => goto('/activities')}
+		onclick={() => goto('/activities')}
 	/>
 	<Button
 		iconOnly
 		beforeIcon={BellIcon}
 		title="Påminnelser"
 		active={activeRoute === '/reminders'}
-		on:click={() => goto('/reminders')}
+		onclick={() => goto('/reminders')}
 	/>
 	<Button
 		iconOnly
 		beforeIcon={ChartPieIcon}
 		title="Statistikk"
 		active={activeRoute === '/statistics'}
-		on:click={() => goto('/statistics')}
+		onclick={() => goto('/statistics')}
 	/>
 </div>
 

@@ -1,28 +1,48 @@
 <script lang="ts">
 	import classNames from 'classnames';
-	import { createEventDispatcher } from 'svelte';
+	import type { ChangeEventHandler, KeyboardEventHandler } from 'svelte/elements';
 
-	export let disabled = false;
-	export let required = false;
-	export let label = '';
-	export let customClasses: string | undefined = undefined;
-	export let error: string | undefined = undefined;
-	export let name: string | undefined = undefined;
-	export let hint: string | undefined = undefined;
-	export let type: 'text' | 'number' | 'password' | 'tel' | 'email' = 'text';
-	export let placeholder: string | undefined = undefined;
-	export let value: string | number | null | undefined = '';
+	let {
+		disabled = false,
+		required = false,
+		label = '',
+		customClasses,
+		error,
+		name,
+		hint,
+		type = 'text',
+		placeholder,
+		value = $bindable(''),
+		onInputChange,
+		onDirty,
+		onHasValue,
+		onEnter
+	}: {
+		disabled?: boolean;
+		required?: boolean;
+		label?: string;
+		customClasses?: string;
+		error?: string;
+		name?: string;
+		hint?: string;
+		type?: 'text' | 'number' | 'password' | 'tel' | 'email';
+		placeholder?: string;
+		value?: string | number | null;
+		onInputChange?: (detail: { text: string }) => void;
+		onDirty?: (detail: { value: true }) => void;
+		onHasValue?: (detail: { value: boolean }) => void;
+		onEnter?: () => void;
+	} = $props();
 
-	const dispatch = createEventDispatcher();
-
-	const inputHandler = (e: any) => {
-		dispatch('inputChange', { text: e?.target?.value });
-		dispatch('dirty', {
-			value: true
-		});
-		dispatch('hasValue', { value: e?.target?.value?.length > 0 });
+	const inputHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
+		value = event.currentTarget.value;
+		onInputChange?.({ text: event.currentTarget.value });
+		onDirty?.({ value: true });
+		onHasValue?.({ value: event.currentTarget.value.length > 0 });
 	};
-	const keyUpHandler = (e: KeyboardEvent) => e.key === 'Enter' && dispatch('enter');
+	const keyUpHandler: KeyboardEventHandler<HTMLInputElement> = (event) => {
+		if (event.key === 'Enter') onEnter?.();
+	};
 </script>
 
 <div class="flex-column flex-column my-4 w-full content-center">
@@ -30,8 +50,8 @@
 	<input
 		id={label.toLowerCase()}
 		{type}
-		on:input={inputHandler}
-		on:keyup={keyUpHandler}
+		oninput={inputHandler}
+		onkeyup={keyUpHandler}
 		class:disabled
 		{disabled}
 		{required}

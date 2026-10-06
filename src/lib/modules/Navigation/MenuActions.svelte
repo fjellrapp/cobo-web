@@ -1,12 +1,14 @@
 <script lang="ts">
-	import Button from '$lib/components/button/Button.svelte';
-	import PlusIcon from '$lib/components/icons/PlusIcon.svelte';
-	import CogIcon from '$lib/components/icons/CogIcon.svelte';
-	import { ButtonTypeEnum } from '$lib/components/button/types';
+	import Button from '#lib/components/button/Button.svelte';
+	import PlusIcon from '#lib/components/icons/PlusIcon.svelte';
+	import CogIcon from '#lib/components/icons/CogIcon.svelte';
+	import { ButtonTypeEnum } from '#lib/components/button/types';
 	import { goto } from '$app/navigation';
 
-	export let authenticated: boolean;
-	export let activeRoute: string | null = null;
+	let {
+		authenticated,
+		activeRoute = null
+	}: { authenticated: boolean; activeRoute?: string | null } = $props();
 </script>
 
 <div class="actions">
@@ -24,7 +26,7 @@
 		beforeIcon={CogIcon}
 		active={activeRoute === '/settings'}
 		title="Innstillinger"
-		on:click={() => {
+		onclick={() => {
 			goto('/settings');
 		}}
 	/>

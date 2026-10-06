@@ -1,9 +1,10 @@
 <script lang="ts">
-	export let extendCss: string = '';
+	import type { Snippet } from 'svelte';
+	let { extendCss = '', children }: { extendCss?: string; children?: Snippet } = $props();
 </script>
 
 <div class={`box ${extendCss} bg-slate-900`}>
-	<slot />
+	{@render children?.()}
 </div>
 
 <style>

@@ -1,13 +1,13 @@
 <script lang="ts">
-	import Card from '$lib/components/card/Card.svelte';
-	import Input from '$lib/components/input/Input.svelte';
-	import Heading from '$lib/components/primitives/Heading.svelte';
-	import Text from '$lib/components/primitives/Text.svelte';
+	import Card from '#lib/components/card/Card.svelte';
+	import Input from '#lib/components/input/Input.svelte';
+	import Heading from '#lib/components/primitives/Heading.svelte';
+	import Text from '#lib/components/primitives/Text.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 
-	const user = data.user;
+	const user = $derived(data.user);
 </script>
 
 <div class="grid w-full grid-cols-6">
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-span-2 flex" />
+	<div class="col-span-2 flex"></div>
 </div>
 
 <style lang="scss">

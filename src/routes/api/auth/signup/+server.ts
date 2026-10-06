@@ -1,8 +1,8 @@
-import { API_BASE_URL } from '$env/static/private';
-import { fetcher } from '$lib/utils/axios/instance';
-import type { SignUpModel } from '$lib/utils/models/interfaces/auth';
-import { extractErrorMessage } from '$lib/utils/message/extractError';
-import { isAxiosError } from '$lib/utils/validation/error';
+import { API_BASE_URL } from '$app/env/private';
+import { fetcher } from '#lib/utils/axios/instance';
+import type { SignUpModel } from '#lib/utils/models/interfaces/auth';
+import { extractErrorMessage } from '#lib/utils/message/extractError';
+import { isAxiosError } from '#lib/utils/validation/error';
 import type { RequestHandler } from './$types';
 import { error } from '@sveltejs/kit';
 export const POST: RequestHandler = async ({ request }): Promise<Response> => {
@@ -18,7 +18,6 @@ export const POST: RequestHandler = async ({ request }): Promise<Response> => {
 			});
 		}
 	} catch (e: unknown) {
-		console.log(e);
 		if (isAxiosError(e)) {
 			const err = extractErrorMessage(e);
 

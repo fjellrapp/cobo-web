@@ -1,8 +1,16 @@
 <script lang="ts">
+	import type { Component, Snippet } from 'svelte';
 	import classNames from 'classnames';
 
-	export let header: string | null;
-	export let body: ConstructorOfATypedSvelteComponent | null = null;
+	let {
+		header,
+		body = null,
+		children
+	}: {
+		header: string | null;
+		body?: Component | null;
+		children?: Snippet;
+	} = $props();
 </script>
 
 <div class={classNames(`w-full max-w-3xl self-stretch rounded-lg bg-white shadow-sm`)}>
@@ -13,9 +21,10 @@
 	</div>
 	<div class="flex flex-col content-center gap-1 px-6 py-4">
 		{#if body}
-			<svelte:component this={body} />
+			{@const Body = body}
+			<Body />
 		{:else}
-			<slot />
+			{@render children?.()}
 		{/if}
 	</div>
 </div>

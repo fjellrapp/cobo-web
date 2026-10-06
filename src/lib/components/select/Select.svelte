@@ -1,17 +1,34 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import classNames from 'classnames';
 	import ChevronIcon from '../icons/ChevronIcon.svelte';
 
-	export let disabled: boolean = false;
-	export let css: string = '';
-	export let open = false;
-	export let label: string = 'Select an option';
-	export let onChange: (value: any) => void;
-	let currentSelection: string = '';
+	let {
+		disabled = false,
+		css = '',
+		open = $bindable(false),
+		label = 'Select an option',
+		options,
+		selectSeparator,
+		onChange,
+		...restProps
+	}: {
+		disabled?: boolean;
+		css?: string;
+		open?: boolean;
+		label?: string;
+		options?: Snippet<[{ onSelect: (value: string | number) => void }]>;
+		selectSeparator?: Snippet;
+		onChange?: (value: string | number) => void;
+		[key: string]: unknown;
+	} = $props();
 
-	let props = { ...$$restProps };
-
-	$: currentLabel = label ?? currentSelection;
+	let currentSelection = $state<string | number | undefined>();
+	const currentLabel = $derived(currentSelection ?? label);
+	const select = (value: string | number) => {
+		currentSelection = value;
+		onChange?.(value);
+	};
 </script>
 
 <div class="select-wrapper">
@@ -19,11 +36,11 @@
 		class={classNames(css, 'select-button', {
 			'outline outline-offset-2 outline-2 outline-darkBlue': open
 		})}
-		{...props}
+		{...restProps}
 		{disabled}
-		on:click={() => (open = !open)}
+		onclick={() => (open = !open)}
 	>
-		<div class="flex items-center justify-between ">
+		<div class="flex items-center justify-between">
 			{currentLabel}
 			<ChevronIcon
 				css={{
@@ -36,9 +53,9 @@
 	</button>
 	{#if open}
 		<div class="option-wrapper">
-			<slot name="options" />
+			{@render options?.({ onSelect: select })}
 		</div>
-		<slot name="select-separator" />
+		{@render selectSeparator?.()}
 	{/if}
 </div>
 

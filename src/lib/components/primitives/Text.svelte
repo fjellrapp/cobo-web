@@ -1,7 +1,9 @@
 <script lang="ts">
-	export let type: 'p' | 'strong' | 'i' | 'small' = 'p';
+	import type { Snippet } from 'svelte';
+	let { type = 'p', children }: { type?: 'p' | 'strong' | 'i' | 'small'; children?: Snippet } =
+		$props();
 </script>
 
 <svelte:element this={type} class=" break-keep">
-	<slot />
+	{@render children?.()}
 </svelte:element>

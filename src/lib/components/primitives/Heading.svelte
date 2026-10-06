@@ -1,8 +1,18 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import classNames from 'classnames';
 
-	export let tag: 'h1' | 'h2' | 'h3' | 'h4' = 'h1';
-	export let customClass: string = '';
+	let {
+		tag = 'h1',
+		customClass = '',
+		children,
+		...restProps
+	}: {
+		tag?: 'h1' | 'h2' | 'h3' | 'h4';
+		customClass?: string;
+		children?: Snippet;
+		[key: string]: unknown;
+	} = $props();
 	const textSizes = {
 		h1: 'text-5xl font-extrabold',
 		h2: 'text-4xl font-bold',
@@ -15,8 +25,11 @@
 
 <svelte:element
 	this={tag}
-	{...$$restProps}
-	class={classNames(customClass ?? textSizes[tag], $$props.class)}
+	{...restProps}
+	class={classNames(
+		customClass || textSizes[tag],
+		typeof restProps.class === 'string' ? restProps.class : ''
+	)}
 >
-	<slot /></svelte:element
->
+	{@render children?.()}
+</svelte:element>

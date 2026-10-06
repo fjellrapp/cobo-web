@@ -1,12 +1,13 @@
-import { API_BASE_URL } from '$env/static/private';
-import { fetcher } from '$lib/utils/axios/instance';
-import type { Handle } from '@sveltejs/kit';
+import { fetcher } from '#lib/utils/axios/instance';
+import type { Handle } from '@sveltejs/kit/hooks';
+import { API_BASE_URL } from '$app/env/private';
 
 export const handle = (async ({ event, resolve }) => {
 	const basePath = API_BASE_URL;
 	const access = event.cookies.get('jwt');
 	const refresh = event.cookies.get('jwt-r');
 
+	console.log('API_BASE_URL:', basePath);
 	if (!access && refresh) {
 		try {
 			const tokensResponse = await fetcher(basePath, event.cookies, true).get(`auth/refresh`);

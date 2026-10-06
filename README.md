@@ -1,22 +1,27 @@
 # Cobo web
 
 This is a Sveltekit respository for the Cobo web frontend.
+
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start the development server:
+Use Node.js 22.17 or newer and pnpm to install dependencies and start the development server:
 
 ```bash
-npm run dev
+pnpm install
+pnpm dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm dev -- --open
 ```
+
+Set `API_BASE_URL` in `.env` to the URL of the Cobo API before running checks or builds. `.env.example` documents the required variable.
 
 ## Building
 
 To create a production version of your app:
 
 ```bash
-npm run build
+pnpm build
 ```
 
+Run `pnpm check` for Svelte and TypeScript diagnostics. Start the component catalog with `pnpm story:dev` and build it with `pnpm story:build`.
